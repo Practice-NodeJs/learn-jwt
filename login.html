@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Login</h1>
+    Username: <input type="text" class="username"/>  </br> Password: <input type="text" class="password" /> </br>
+    <button type="button" onclick="login()">Login</button>
+  </body>
+
+  <script>
+      function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+      const login = () => {
+          $.ajax({
+              type: "POST",
+              url: "/login",
+              data: {
+                  username: $('.username').val(),
+                  password: $('.password').val()
+              }
+          }).then(data => {    
+              setCookie('token', data.token, 1)
+            }).catch(err => { 
+                console.log("Log :  err", err)
+            })
+
+      
+      }
+  </script>
+</html>
