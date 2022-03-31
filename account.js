@@ -8,6 +8,7 @@ const accountSchema = new Schema(
   {
     username: String,
     password: String,
+    role: String,
   },
   {
     collection: "Account",
